@@ -1,0 +1,8 @@
+streamlit==1.38.0
+pandas==2.2.3
+numpy==2.1.2
+plotly==5.24.1
+SQLAlchemy==2.0.35
+
+# Optional if you want to run the Airflow DAG locally later
+# apache-airflow==2.9.3

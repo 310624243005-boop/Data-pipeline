@@ -1,0 +1,17 @@
+order_id,customer_name,region,order_date,amount,quantity,customer_age,status
+1001,Alice Johnson,North,2024-01-03,120.5,2,30,paid
+1002,Bob Smith,South,2024-01-04,80,1,28,paid
+1003,Charlie Brown,East,2024-01-05,,3,35,shipped
+1004,David Lee,West,2024-01-07,210,4,41,paid
+1004,David Lee,West,2024-01-07,210,4,41,paid
+1005,Emily Davis,North,2024-01-09,45.5,1,29,pending
+1006,Frank Wilson,,2024-01-11,-20,2,22,cancelled
+1007,Gina Martinez,South,2024-01-15,155,5,45,paid
+1008,Henry Clark,East,2024-01-18,98.75,2,,shipped
+1009,Ivy Adams,West,2024-01-20,300,6,60,paid
+1010,Jack Lewis,North,2024-01-22,75,3,17,paid
+1011,Karen Young,South,2024-01-29,,2,52,paid
+1012,Leo Harris,East,2024-01-30,50,1,101,pending
+1013,Mia Scott,West,2024-02-02,180,4,37,
+1014,Nina Patel,North,2024-02-03,210.2,2,33,
+1015,Oscar Reed,South,2024-02-04,90,1,26,shipped
