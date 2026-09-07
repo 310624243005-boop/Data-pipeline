@@ -6,7 +6,8 @@ st.title("Data Cleaning")
 st.caption("See the raw data before and after the cleaning logic")
 
 try:
-    raw_df = load_raw_data()
+    source_path = st.session_state.get("data_source_path")
+    raw_df = load_raw_data(source_path)
     clean_df = clean_dataframe(raw_df)
 
     tab1, tab2 = st.tabs(["Raw Data", "Cleaned Data"])

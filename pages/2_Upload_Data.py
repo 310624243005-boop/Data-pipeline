@@ -15,6 +15,7 @@ if uploaded_file is not None:
     file_path.parent.mkdir(exist_ok=True, parents=True)
     file_path.write_bytes(uploaded_file.getvalue())
     st.session_state.uploaded_file_name = uploaded_file.name
+    st.session_state.data_source_path = str(file_path.resolve())
     st.success(f"File saved: {file_path}")
 
     try:

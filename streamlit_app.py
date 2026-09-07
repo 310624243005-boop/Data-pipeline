@@ -19,6 +19,8 @@ if "feature_view" not in st.session_state:
     st.session_state.feature_view = pd.DataFrame()
 if "uploaded_file_name" not in st.session_state:
     st.session_state.uploaded_file_name = "sample_data.csv"
+if "data_source_path" not in st.session_state:
+    st.session_state.data_source_path = str(PROJECT_ROOT / "data" / "sample_data.csv")
 
 home = st.Page("pages/0_Home.py", title="🏠 Home", icon="🏠")
 dashboard = st.Page("pages/1_Dashboard.py", title="📊 Dashboard", icon="📊")

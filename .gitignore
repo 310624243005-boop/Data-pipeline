@@ -1,0 +1,29 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local configuration and editor files
+.env
+.env.*
+.vscode/
+.idea/
+
+# Generated local warehouse files
+warehouse/*.db
+warehouse/*.sqlite
+warehouse/*.sqlite3
+
+# Uploaded data files; keep the committed sample dataset
+data/*
+!data/sample_data.csv
+
+# Test and tooling output
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/

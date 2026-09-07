@@ -36,6 +36,9 @@ def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     cleaned = df.copy()
     cleaned = cleaned.drop_duplicates().reset_index(drop=True)
 
+    def find_column(candidates: list[str]) -> str | None:
+        return next((column for column in candidates if column in cleaned.columns), None)
+
     for column in cleaned.columns:
         if cleaned[column].dtype == object:
             cleaned[column] = cleaned[column].replace({np.nan: None, pd.NA: None})
@@ -44,20 +47,23 @@ def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
             )
             cleaned[column] = cleaned[column].fillna("unknown")
 
-    numeric_candidates = ["amount", "quantity", "customer_age"]
+    amount_column = find_column(["amount", "purchase_amount", "price", "revenue", "total_amount"])
+    quantity_column = find_column(["quantity", "orders", "order_count", "units"])
+    age_column = find_column(["customer_age", "age"])
+    numeric_candidates = [column for column in [amount_column, quantity_column, age_column] if column]
     for column in numeric_candidates:
         if column in cleaned.columns:
             cleaned[column] = pd.to_numeric(cleaned[column], errors="coerce")
             median_value = cleaned[column].median()
-            cleaned[column] = cleaned[column].fillna(median_value)
+            if pd.notna(median_value):
+                cleaned[column] = cleaned[column].fillna(median_value)
 
-    if "amount" in cleaned.columns:
-        cleaned["amount"] = cleaned["amount"].apply(lambda x: abs(float(x)))
-    if "quantity" in cleaned.columns:
-        cleaned["quantity"] = cleaned["quantity"].astype(int)
-    if "customer_age" in cleaned.columns:
-        cleaned["customer_age"] = cleaned["customer_age"].clip(lower=18, upper=100)
-        cleaned["customer_age"] = cleaned["customer_age"].round().astype(int)
+    if amount_column:
+        cleaned[amount_column] = cleaned[amount_column].abs()
+    if quantity_column:
+        cleaned[quantity_column] = cleaned[quantity_column].round().astype(int)
+    if age_column:
+        cleaned[age_column] = cleaned[age_column].clip(lower=18, upper=100).round().astype(int)
     if "status" in cleaned.columns:
         cleaned["status"] = cleaned["status"].replace({"": "pending", "unknown": "pending"})
     if "region" in cleaned.columns:
@@ -66,10 +72,15 @@ def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
         cleaned["order_date"] = pd.to_datetime(cleaned["order_date"], errors="coerce").dt.strftime("%Y-%m-%d")
         cleaned["order_date"] = cleaned["order_date"].replace({"NaT": "unknown"})
 
-    cleaned["is_high_value"] = (cleaned["amount"] > cleaned["amount"].median()).astype(int) if "amount" in cleaned.columns else 0
-    if "amount" in cleaned.columns and "quantity" in cleaned.columns:
-        cleaned["amount_per_item"] = (cleaned["amount"] / cleaned["quantity"]).replace([np.inf, -np.inf], np.nan)
-        cleaned["amount_per_item"] = cleaned["amount_per_item"].fillna(cleaned["amount"].mean())
+    if amount_column:
+        cleaned["is_high_value"] = (cleaned[amount_column] > cleaned[amount_column].median()).astype(int)
+    else:
+        cleaned["is_high_value"] = 0
+    if amount_column and quantity_column:
+        cleaned["amount_per_item"] = (cleaned[amount_column] / cleaned[quantity_column]).replace(
+            [np.inf, -np.inf], np.nan
+        )
+        cleaned["amount_per_item"] = cleaned["amount_per_item"].fillna(cleaned[amount_column].mean())
 
     return cleaned
 

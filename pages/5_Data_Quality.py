@@ -6,7 +6,8 @@ st.title("Data Quality")
 st.caption("Check nulls, duplicates, and invalid values")
 
 try:
-    df = load_raw_data()
+    source_path = st.session_state.get("data_source_path")
+    df = load_raw_data(source_path)
     report = data_quality_report(df)
     st.json(report)
 except Exception as exc:
