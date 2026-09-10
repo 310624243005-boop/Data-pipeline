@@ -22,15 +22,15 @@ if "uploaded_file_name" not in st.session_state:
 if "data_source_path" not in st.session_state:
     st.session_state.data_source_path = str(PROJECT_ROOT / "data" / "sample_data.csv")
 
-home = st.Page("pages/0_Home.py", title="🏠 Home", icon="🏠")
-dashboard = st.Page("pages/1_Dashboard.py", title="📊 Dashboard", icon="📊")
-upload = st.Page("pages/2_Upload_Data.py", title="📤 Upload Data", icon="📤")
-run_pipeline = st.Page("pages/3_Run_Pipeline.py", title="🔄 Run Pipeline", icon="🔄")
-cleaning = st.Page("pages/4_Data_Cleaning.py", title="🧹 Data Cleaning", icon="🧹")
-quality = st.Page("pages/5_Data_Quality.py", title="✅ Data Quality", icon="✅")
-warehouse = st.Page("pages/6_Warehouse.py", title="🗄️ Warehouse", icon="🗄️")
-analytics = st.Page("pages/7_Analytics.py", title="📈 Analytics", icon="📈")
-feature_view = st.Page("pages/8_Feature_View.py", title="🤖 Feature View", icon="🤖")
+home = st.Page("pages/0_Home.py", title="Home", icon="🏠")
+dashboard = st.Page("pages/1_Dashboard.py", title="Dashboard", icon="📊")
+upload = st.Page("pages/2_Upload_Data.py", title="Upload Data", icon="📤")
+run_pipeline = st.Page("pages/3_Run_Pipeline.py", title="Run Pipeline", icon="🔄")
+cleaning = st.Page("pages/4_Data_Cleaning.py", title="Data Cleaning", icon="🧹")
+quality = st.Page("pages/5_Data_Quality.py", title="Data Quality", icon="✅")
+warehouse = st.Page("pages/6_Warehouse.py", title="Warehouse", icon="🗄️")
+analytics = st.Page("pages/7_Analytics.py", title="Analytics", icon="📈")
+feature_view = st.Page("pages/8_Feature_View.py", title="Feature View", icon="🤖")
 
 pg = st.navigation({
     "Project": [home],

@@ -60,8 +60,16 @@ pip install -r requirements.txt
 streamlit run streamlit_app.py
 ```
 
+## Run with Airflow
+
+The DAG at `airflow/dags/data_pipeline.py` runs the existing pipeline once per day.
+It stores cleaned records in `warehouse/warehouse.db` in the `cleaned_orders` table
+and records each run in `pipeline_runs`. Copy the `airflow/dags` folder into the
+Airflow DAGs directory, then enable `data_pipeline_to_sqlite_warehouse` in the
+Airflow UI.
+
 ## Notes
 
 - SQLite is used as the initial warehouse for local development.
-- The architecture is ready to evolve to PostgreSQL or Airflow later.
+- Airflow orchestrates the existing pipeline and SQLite is used as the local warehouse.
 - The demo pipeline is intentionally simple and suitable for student project work.
